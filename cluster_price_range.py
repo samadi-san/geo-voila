@@ -68,10 +68,9 @@ def get_location():
      print("[latitude, longitude]:", location)
      return location
 
-def price_priority_map(folder):
-     
-    if not os.path.exists(folder):
-         os.makedirs(folder)
+def price_priority_map(folder, location):
+     if not os.path.exists(folder):
+          os.makedirs(folder)
     
      x, y = "latitude", "longitude"
      color = "price_range"
@@ -108,7 +107,7 @@ def price_priority_map(folder):
 
      ## plot the map
      map_
-     
+
      plt.savefig(os.path.join(folder, 'map.png'))
      return "img/map.png"
 
