@@ -34,7 +34,7 @@ def get_price_map():
     lat = request.args.get('lat')
     long = request.args.get('long')
     
-    return json.dumps({'results':  price_priority_map(folder, (lat, long))})
+    return json.dumps({'results':  request.url_root + price_priority_map(folder, (lat, long))})
 
 @app.route('/cluster', methods=['GET', 'POST'])
 def get_cluster():
@@ -48,7 +48,7 @@ def show_prices_range():
 
 @app.route('/img/<path:filename>') 
 def send_file(filename): 
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(app.config['IMAGE_FOLDER'], filename)
 
 @app.route('/location', methods = ['GET'])
 def new_location():

@@ -109,7 +109,7 @@ def price_priority_map(folder, location):
      map_
 
      plt.savefig(os.path.join(folder, 'map.png'))
-     return "img/map.png"
+     return "/img/map.png"
 
 def kmean_cluster():
      k = 7
