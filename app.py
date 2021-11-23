@@ -53,4 +53,4 @@ def new_location():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='geo-spatial-data-analysis.herokuapp.com')
