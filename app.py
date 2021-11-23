@@ -43,8 +43,8 @@ def send_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/location', methods = ['GET'])
-def get_location():
-    return json.dumps({'results':   request.url_root + get_location()})
+def new_location():
+    return json.dumps({'results':  get_location()})
 
 # @app.route('/map', methods=['GET'])
 # def price_priority_map():

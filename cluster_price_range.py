@@ -65,7 +65,7 @@ def get_location():
      ## keep latitude and longitude only
      location = [location.latitude, location.longitude]
      print("[latitude, longitude]:", location)
-     return location.values
+     return location
 
 def price_priority_map():
      x, y = "latitude", "longitude"
