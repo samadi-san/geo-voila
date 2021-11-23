@@ -23,18 +23,18 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/hello/', methods=['GET', 'POST'])
+@app.route('/hello', methods=['GET', 'POST'])
 def welcome():
     return "Hello World!"
 
 
-@app.route('/cluster/', methods=['GET', 'POST'])
+@app.route('/cluster', methods=['GET', 'POST'])
 def get_cluster():
     return json.dumps({'results':  list(kmean_cluster())})
 
 
 
-@app.route('/price_range/', methods=['GET'])
+@app.route('/price_range', methods=['GET'])
 def show_prices_range():
     return json.dumps({'results':  request.url_root + price_range()})
 
@@ -42,7 +42,7 @@ def show_prices_range():
 def send_file(filename): 
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-@app.route('/location/', methods = ['GET'])
+@app.route('/location', methods = ['GET'])
 def get_location():
     return json.dumps({'results':   request.url_root + get_location()})
 
