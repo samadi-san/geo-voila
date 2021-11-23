@@ -27,10 +27,14 @@ app.config.from_object('config')
 def welcome():
     return "Hello World!"
 
-@app.route('/map/<location>', methods=['GET'])
+@app.route('/map', methods=['GET'])
 def get_price_map(location):
     folder = app.config['IMAGE_FOLDER']
-    return json.dumps({'results':  price_priority_map(folder, location)})
+    
+    lat = request.args.get('lat')
+    long = request.args.get('long')
+    
+    return json.dumps({'results':  price_priority_map(folder, [lat, long])})
 
 @app.route('/cluster', methods=['GET', 'POST'])
 def get_cluster():
