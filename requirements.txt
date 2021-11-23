@@ -7,5 +7,5 @@
  folium==0.12.1
  geopy==2.2.0 
  sklearn==0.0
- scipy==1.6.2
+ scipy
  minisom==2.2.9
