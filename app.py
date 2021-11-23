@@ -14,19 +14,23 @@
     
 from flask import Flask
 from flask import send_from_directory, request
-from cluster_price_range import kmean_cluster, price_range,get_location
+from cluster_price_range import kmean_cluster, price_range,get_location, price_priority_map
 import json
 
 UPLOAD_FOLDER = 'images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config.from_object('config')
 
 @app.route('/hello', methods=['GET', 'POST'])
 def welcome():
     return "Hello World!"
 
+@app.route('/map', methods=['GET'])
+def get_price_map():
+    folder = app.config['IMAGE_FOLDER']
+    return json.dumps({'results':  price_priority_map(folder)})
 
 @app.route('/cluster', methods=['GET', 'POST'])
 def get_cluster():

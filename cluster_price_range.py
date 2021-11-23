@@ -24,6 +24,7 @@ import seaborn as sns
 import folium
 import geopy
 
+import os
 
 # In[4]:
 
@@ -67,7 +68,11 @@ def get_location():
      print("[latitude, longitude]:", location)
      return location
 
-def price_priority_map():
+def price_priority_map(folder):
+     
+    if not os.path.exists(folder):
+         os.makedirs(folder)
+    
      x, y = "latitude", "longitude"
      color = "price_range"
      size = "district_id"
@@ -103,7 +108,8 @@ def price_priority_map():
 
      ## plot the map
      map_
-     plt.savefig('F:\SLIIT\Distance\images\map.png')
+     
+     plt.savefig(os.path.join(folder, 'map.png'))
      return "img/map.png"
 
 def kmean_cluster():
