@@ -108,12 +108,13 @@ def price_priority_map(folder, location):
      map_.get_root().html.add_child(folium.Element(legend_html))
 
      ## plot the map
-     img_data = map_._to_png(5)
-     img = Image.open(io.BytesIO(img_data))
-     img.save(os.path.join(folder, 'map.png'))
+     # img_data = map_._to_png(5)
+     # img = Image.open(io.BytesIO(img_data))
+     # img.save(os.path.join(folder, 'map.png'))
 
      # plt.savefig(os.path.join(folder, 'map.png'))
-     return "img/map.png"
+     map_.save(os.path.join(folder, 'map.html'))
+     return "img/map.html"
 
 def kmean_cluster():
      k = 7
