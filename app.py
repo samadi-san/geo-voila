@@ -14,7 +14,7 @@
     
 from flask import Flask
 from flask import send_from_directory, request
-from cluster_price_range import kmean_cluster, price_range,get_location, price_priority_map
+from cluster_price_range import kmean_cluster, price_range,get_location, price_priority_map, best_market_place
 import json
 
 UPLOAD_FOLDER = 'images'
@@ -35,6 +35,16 @@ def get_price_map():
     long = request.args.get('long')
     
     return json.dumps({'results':  request.url_root + price_priority_map(folder, (lat, long))})
+
+@app.route('/marketplace', methods=['GET'])
+def get_marketplace_map():
+    folder = app.config['IMAGE_FOLDER']
+    
+    lat = request.args.get('lat')
+    long = request.args.get('long')
+    
+    return json.dumps({'results':  request.url_root + best_market_place((folder, (lat, long)))})
+
 
 @app.route('/cluster', methods=['GET', 'POST'])
 def get_cluster():
@@ -61,4 +71,5 @@ def new_location():
 
 
 if __name__ == '__main__':
-    app.run(host='geo-spatial-data-analysis.herokuapp.com')
+    # app.run(host='geo-spatial-data-analysis.herokuapp.com')
+    app.run(host='0.0.0.0')

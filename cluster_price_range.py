@@ -133,3 +133,48 @@ def kmean_cluster():
      names = dtf.sample(7)["name_en"]
      return names.values
 
+def best_market_place(folder, location):
+     if not os.path.exists(folder):
+          os.makedirs(folder)
+     x, y = "latitude", "longitude"
+     color = "cluster"
+     size = "district_id"
+     popup = "name_en"
+     marker = "centroids"
+     data = dtf.copy()
+     ## create color column
+     lst_elements = sorted(list(dtf[color].unique()))
+     
+     lst_colors = ['#%06X' % np.random.randint(i, 0xFFFFFF) for i in range(len(lst_elements))] 
+     data["color"] = data[color].apply(lambda x: 
+                    lst_colors[lst_elements.index(x)])
+     ## create size column (scaled)
+     scaler = preprocessing.MinMaxScaler(feature_range=(3,15))
+     data["size"] = scaler.fit_transform(
+                    data[size].values.reshape(-1,1)).reshape(-1)
+     ## initialize the map with the starting location
+     map_ = folium.Map(location=location, tiles="cartodbpositron",
+                    zoom_start=11)
+     ## add points
+     data.apply(lambda row: folium.CircleMarker(
+               location=[row[x],row[y]], popup=row[popup],
+               color=row["color"], fill=True,
+               radius=row["size"]).add_to(map_), axis=1)
+     ## add html legend
+     legend_html = """<div style="position:fixed; bottom:10px; left:10px; border:2px solid black; z-index:9999; font-size:14px;">&nbsp;<b>"""+color+""":</b><br>"""
+     for i in lst_elements:
+          legend_html = legend_html+"""&nbsp;<i class="fa fa-circle 
+          fa-1x" style="color:"""+lst_colors[lst_elements.index(i)]+"""">
+          </i>&nbsp;"""+str(i)+"""<br>"""
+     legend_html = legend_html+"""</div>"""
+     map_.get_root().html.add_child(folium.Element(legend_html))
+     ## add centroids marker
+     lst_elements = sorted(list(dtf[marker].unique()))
+     data[data[marker]==1].apply(lambda row: 
+               folium.Marker(location=[row[x],row[y]], 
+               popup=row[marker], draggable=False,          
+               icon=folium.Icon(color="black")).add_to(map_), axis=1)
+     ## plot the map
+     # map_
+     map_.save(os.path.join(folder, 'marketplace.html'))
+     return "img/marketplace.html"
