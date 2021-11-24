@@ -14,7 +14,7 @@
     
 from flask import Flask
 from flask import send_from_directory, request
-from cluster_price_range import kmean_cluster, price_range,get_location, price_priority_map, best_market_place
+from cluster_price_range import kmean_cluster, price_range,get_location, price_priority_map, best_marketplace
 import json
 
 UPLOAD_FOLDER = 'images'
@@ -43,7 +43,7 @@ def get_marketplace_map():
     lat = request.args.get('lat')
     long = request.args.get('long')
     
-    return json.dumps({'results':  request.url_root + best_market_place((folder, (lat, long)))})
+    return json.dumps({'results':  request.url_root + best_marketplace(folder, (lat, long))})
 
 
 @app.route('/cluster', methods=['GET', 'POST'])

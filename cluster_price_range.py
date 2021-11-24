@@ -133,7 +133,7 @@ def kmean_cluster():
      names = dtf.sample(7)["name_en"]
      return names.values
 
-def best_market_place(folder, location):
+def best_marketplace(folder, location):
      if not os.path.exists(folder):
           os.makedirs(folder)
      x, y = "latitude", "longitude"
